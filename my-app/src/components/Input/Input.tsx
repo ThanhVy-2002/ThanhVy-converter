@@ -11,7 +11,7 @@ interface InputProps {
     value?: any
     placeholder?: string
     select?: boolean
-    options?: Array<{ label: string, value: string }>
+    options?: Array<{ label: string, value: string, img: any }>
 }
 export const Input: React.FC<InputProps> = ({
     onChange,
@@ -25,13 +25,13 @@ export const Input: React.FC<InputProps> = ({
     options
 }) => {
     return (
-        <div className='flex flex-col  items-center'>
-            <label className="font-medium text-[20px]"> {label} </label>
+        <div className='flex flex-col '>
+            <label className="font-medium text-[20px]">{label}</label>
             {select ? (
                 <TextField
                     onChange={onChange}
                     type={type}
-                    className={`${className} w-[300px]`}
+                    className={`${className} `}
                     placeholder={placeholder}
                     InputProps={{
                         startAdornment: icon ? (
@@ -42,7 +42,8 @@ export const Input: React.FC<InputProps> = ({
                     value={value}
                 >
                     {options?.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
+                        <MenuItem key={option.value} value={option.value} className=''>
+                            {option.img}
                             {option.label}
                         </MenuItem>
                     ))}

@@ -18,7 +18,7 @@ export const Button: React.FC<ButtonProps> = ({
             onClick={onClick}
         >
             {label}
-            {icon}
+            <span className='flex items-center ml-2'>{icon}</span>
         </button>
     )
 }
