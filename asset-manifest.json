@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ThanhVy-converter/static/css/main.138d1e48.css",
+    "main.js": "/ThanhVy-converter/static/js/main.27c4e9eb.js",
+    "static/js/453.ed3810f9.chunk.js": "/ThanhVy-converter/static/js/453.ed3810f9.chunk.js",
+    "index.html": "/ThanhVy-converter/index.html",
+    "main.138d1e48.css.map": "/ThanhVy-converter/static/css/main.138d1e48.css.map",
+    "main.27c4e9eb.js.map": "/ThanhVy-converter/static/js/main.27c4e9eb.js.map",
+    "453.ed3810f9.chunk.js.map": "/ThanhVy-converter/static/js/453.ed3810f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.138d1e48.css",
+    "static/js/main.27c4e9eb.js"
+  ]
+}
