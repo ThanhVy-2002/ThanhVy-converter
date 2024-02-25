@@ -1,4 +1,3 @@
-
 import { useMemo, useState } from "react"
 import { ArrowSwapIcon } from "../../assets/ArrowSwapIcon"
 import { Button } from "../Button/Button"
@@ -8,10 +7,9 @@ import { dataForm } from "./dataForm"
 export const Currency = () => {
     const [buttonColor, setButtonColor] = useState('#0071eb')
     const [clicked, setClicked] = useState(false)
-
-    const [selectedCurrency, setSelectedCurrency] = useState('$')
-    const [fromValue, setFromValue] = useState('')
-    const [toValue, setToValue] = useState('')
+    const [selectedCurrencyForm, setSelectedCurrencyForm] = useState('$');
+    const [selectedCurrencyTo, setSelectedCurrencyTo] = useState('$');
+    const [error, setIsError] = useState(false)
 
     const handleChangeColorButton = () => {
         setButtonColor(clicked ? '#0047AB' : '#0071eb')
@@ -22,23 +20,27 @@ export const Currency = () => {
         return buttonColor === '#0071eb' ? 'bg-[#0071eb] hover:bg-[#0096FF]' : 'bg-[#0047AB]'
     }, [buttonColor])
 
-    const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value);
-    }
 
     const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value);
+        const inputValue = e.target.value
+        const validInput = /^\d*\.?\d*$/.test(inputValue); // check numeric input
+        setIsError(!validInput)
     }
 
-    const handleCurrencyChange = (selectedValue: string) => {
-        setSelectedCurrency(selectedValue)
-    }
-    
-    const handleSwapValues = () => {
-        const temp = fromValue
-        setFromValue(toValue)
-        setToValue(temp)
-    }
+    const handleCurrencyChange = (selectedValue: string, inputType: string) => {
+        if (inputType === 'form') {
+            setSelectedCurrencyForm(selectedValue);
+        } else if (inputType === 'to') {
+            setSelectedCurrencyTo(selectedValue);
+        }
+    };
+
+    const swapOptions = () => {
+        const temp = selectedCurrencyForm;
+        setSelectedCurrencyForm(selectedCurrencyTo);
+        setSelectedCurrencyTo(temp);
+    };
+
     const getCurrencyIcon = (currency: string) => ({
         USD: '$',
         CAD: '$',
@@ -51,36 +53,38 @@ export const Currency = () => {
         HKD: '$',
         CNY: '¥',
         VND: 'đ'
-      }[currency] || '');
+    }[currency] || '');
 
     return (
         <div className="">
             <div className="flex flex-row space-x-[30px] items-center justify-items-center ml-[50px]">
                 <Input
                     label="Amount"
-                    type="number"
                     className="w-[300px]"
                     onChange={handleAmountChange}
-                    icon={getCurrencyIcon(selectedCurrency)}
+                    icon={getCurrencyIcon(selectedCurrencyForm)}
+                    error = {error}
                 />
                 <Input
                     label="Form"
                     select
                     className="w-[300px]"
                     options={dataForm}
-                    onChange={(e: any) => handleCurrencyChange(e.target.value)}
+                    value={selectedCurrencyForm}
+                    onChange={(e: any) => handleCurrencyChange(e.target.value, 'form')}
                 />
                 <Button
                     icon={<ArrowSwapIcon />}
                     className="w-[50px] h-[50px] rounded-full border border-solid border-[DDDDDD] mt-6"
-                    onClick={handleSwapValues}
+                    onClick={swapOptions}
                 />
                 <Input
                     label="To"
                     select
                     className="w-[300px]"
-                    onChange={handleOnChange}
                     options={dataForm}
+                    value={selectedCurrencyTo}
+                    onChange={(e: any) => handleCurrencyChange(e.target.value, 'to')}
                 />
             </div>
             <div className="grid justify-items-end mr-[50px]">

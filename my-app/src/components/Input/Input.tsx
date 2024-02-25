@@ -1,17 +1,16 @@
 import React from 'react'
 import { InputAdornment, TextField } from "@mui/material";
 import MenuItem from '@mui/material/MenuItem';
-
 interface InputProps {
     label?: string
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
     className?: string
     icon?: any
-    type?: 'number' | 'text'
     value?: any
     placeholder?: string
     select?: boolean
     options?: Array<{ label: string, value: string, img: any }>
+    error?: boolean
 }
 export const Input: React.FC<InputProps> = ({
     onChange,
@@ -19,10 +18,10 @@ export const Input: React.FC<InputProps> = ({
     className,
     icon,
     placeholder,
-    type,
     value,
     select,
-    options
+    options,
+    error
 }) => {
     return (
         <div className='flex flex-col '>
@@ -30,7 +29,6 @@ export const Input: React.FC<InputProps> = ({
             {select ? (
                 <TextField
                     onChange={onChange}
-                    type={type}
                     className={`${className} `}
                     placeholder={placeholder}
                     InputProps={{
@@ -51,7 +49,6 @@ export const Input: React.FC<InputProps> = ({
             ) : (
                 <TextField
                     onChange={onChange}
-                    type={type}
                     className={className}
                     placeholder={placeholder}
                     InputProps={{
@@ -60,6 +57,8 @@ export const Input: React.FC<InputProps> = ({
                         ) : null
                     }}
                     value={value}
+                    error = {error}
+                    helperText={error ? 'Please enter number' : undefined}
                 />
             )}
         </div>
